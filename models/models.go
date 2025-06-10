@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	Username string
+	Username string `gorm:"unique"`
 	Password string
 }
 
@@ -54,4 +54,9 @@ type Sport struct {
 	gorm.Model
 	Name  string
 	Teams []Team `gorm:"many2many:sport_teams;"`
+}
+
+type UserRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
 }

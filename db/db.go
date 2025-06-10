@@ -10,9 +10,8 @@ import (
 	"time"
 )
 
-var DB *gorm.DB
-
-func ConnectDB() {
+func ConnectDB() *gorm.DB {
+	var DB *gorm.DB
 	var err error
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags),
@@ -31,4 +30,5 @@ func ConnectDB() {
 	}
 
 	DB.AutoMigrate(&models.User{}, &models.Market{}, &models.Country{}, &models.Competition{}, &models.Event{}, &models.Team{})
+	return DB
 }
