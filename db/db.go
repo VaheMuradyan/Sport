@@ -29,6 +29,6 @@ func ConnectDB() *gorm.DB {
 		panic("Failed to connect to databse!")
 	}
 
-	DB.AutoMigrate(&models.User{}, &models.Market{}, &models.Country{}, &models.Competition{}, &models.Event{}, &models.Team{})
+	DB.AutoMigrate(&models.User{}, &models.Market{}, &models.Country{}, &models.Competition{}, &models.Event{}, &models.Team{}, &models.CoefficientHistory{})
 	return DB
 }

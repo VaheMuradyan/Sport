@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package coefficient;
+
+option go_package = "github.com/VaheMuradyan/Sport/proto";
+
+service CoefficientService {
+  rpc UpdateCoefficient(UpdateCoefficientRequest) returns (UpdateCoefficientResponse);
+  rpc GetMarketCoefficient(GetMarketCoefficientRequest) returns (GetMarketCoefficientResponse);
+  rpc StreamCoefficientUpdates(StreamCoefficientRequest) returns (stream CoefficientUpdateEvent);
+}
+
+
+message UpdateCoefficientRequest {
+  uint32 market_id = 1;
+  double new_coefficient = 2;
+  uint32 user_id = 3;
+}
+
+message UpdateCoefficientResponse {
+  bool success = 1;
+  string message = 2;
+  uint32 market_id = 3;
+  double old_coefficient = 4;
+  double new_coefficient = 5;
+  int64 updated_at = 6;
+}
+
+message GetMarketCoefficientRequest {
+  uint32 market_id = 1;
+}
+
+message GetMarketCoefficientResponse {
+  uint32 market_id = 1;
+  double current_coefficient = 2;
+  double previous_coefficient = 3;
+  int64 last_updated = 4;
+  bool active = 5;
+}
+
+message StreamCoefficientRequest {
+  repeated uint32 event_ids = 1;
+  repeated uint32 market_ids = 2;
+}
+
+message CoefficientUpdateEvent {
+  string type = 1;
+  uint32 market_id = 2;
+  uint32 event_id = 3;
+  double old_coefficient = 4;
+  double new_coefficient = 5;
+  int64 timestamp = 6;
+}
